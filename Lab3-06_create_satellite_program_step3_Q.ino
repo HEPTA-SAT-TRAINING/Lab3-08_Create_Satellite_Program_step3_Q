@@ -3,7 +3,12 @@
 HeptaCdh cdh;
 HeptaEps eps;
 
+// Two separate thresholds prevent chattering when voltage hovers near the boundary
+const float VOLTAGE_TURN_OFF = 3.7;
+const float VOLTAGE_TURN_ON  = 3.9;
+
 const float temperature = 25.0; // Temperature in degrees Celsius
+bool sw3V3_is_on = true;
 
 bool is_cmd_received(void);
 char get_cmd(void);
@@ -16,11 +21,24 @@ void setup() {
 }
 
 void loop() {
+  float battery_voltage = eps.get_battery_voltage();
   cdh.println("------------------------------");
   cdh.printf("Satellite Time: %.2f seconds\n", millis() / 1000.0); // Print time in seconds
-  cdh.printf("Battery Voltage: %.2f V\n", eps.get_battery_voltage());
+  cdh.printf("Battery Voltage: %.2f V\n", battery_voltage);
   cdh.printf("Temperature: %.2f °C\n", temperature);
   cdh.println("------------------------------");
+
+  if (sw3V3_is_on && battery_voltage < VOLTAGE_TURN_OFF) {
+    cdh.println("Battery voltage is low! Switching off 3.3V SW to save power.");
+    eps.switch_3V3_off();
+    sw3V3_is_on = false;
+  } else if (!sw3V3_is_on && battery_voltage > VOLTAGE_TURN_ON) {
+    cdh.println("Battery voltage recovered. Switching on 3.3V SW.");
+    eps.switch_3V3_on();
+    sw3V3_is_on = true;
+  } else {
+    cdh.printf("3.3V SW is %s.\n", sw3V3_is_on ? "on" : "off");
+  }
 
   if (is_cmd_received()) {
     char cmd = get_cmd();
@@ -41,6 +59,27 @@ void loop() {
         case 'b': {
           // Write some code to measure the battery voltage and save it to a file on the SD card
           // You can refer to Lab3-04_save_battery_voltage_to_microsd
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         }
 
