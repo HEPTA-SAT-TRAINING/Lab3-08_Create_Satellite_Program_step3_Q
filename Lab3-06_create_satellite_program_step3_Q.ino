@@ -50,7 +50,7 @@ void loop() {
       switch (cmd) {
         case 'a': {
           for(uint8_t i = 0; i < 10; i++) {
-            cdh.println("Hello Hepta sat lite");
+            cdh.println("Hello HEPTA-SAT");
             delay(1000);
           }
           break;
@@ -59,23 +59,6 @@ void loop() {
         case 'b': {
           // Write some code to measure the battery voltage and save it to a file on the SD card
           // You can refer to Lab3-04_save_battery_voltage_to_microsd
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
