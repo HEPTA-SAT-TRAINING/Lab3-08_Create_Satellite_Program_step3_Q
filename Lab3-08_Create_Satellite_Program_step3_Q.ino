@@ -59,7 +59,7 @@ void loop() {
 
         case 'b': {
           // Write some code to measure the battery voltage and save it to a file on the SD card
-          // You can refer to Lab3-04_save_battery_voltage_to_microsd
+          // You can refer to Lab3-06_Save_Battery_Voltage_to_Microsd
 
 
 
